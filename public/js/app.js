@@ -2076,8 +2076,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['users', 'addUserRoute']
+  props: ['users', 'addUserRoute', 'deleteUserRoute', 'editUserRoute'],
+  methods: {
+    btnStopPropagation: function btnStopPropagation(e) {
+      e.stopPropagation();
+    },
+    edit: function edit(userId) {
+      console.log(userId);
+      window.location = this.editUserRoute + '/' + userId;
+    }
+  }
 });
 
 /***/ }),
@@ -2091,6 +2107,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+var _this = undefined;
+
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2119,13 +2142,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['csrfToken', 'addUserRoute'],
+  props: ['edit', 'csrfToken', 'addUserRoute', 'editUserRoute', 'name', 'email', 'password', 'phone', 'nameError', 'emailError', 'passwordError', 'phoneError'],
   data: function data() {
     return {
-      name: '',
-      email: '',
-      password: '',
-      phone: '',
+      name: _this.name,
+      email: _this.email,
+      password: _this.password,
+      phone: _this.phone,
       photo: null
     };
   },
@@ -6733,7 +6756,7 @@ exports.push([module.i, "\n.container {\n    display: flex;\n    flex-direction:
 
 exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
 // imports
-
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Material+Icons);", ""]);
 
 // module
 exports.push([module.i, "\n.container {\n    display: flex;\n}\n.btn-container {\n    display: flex;\n    flex: 1;\n    flex-direction: row;\n    justify-content: flex-end;\n    padding-top: 30px;\n    padding-right: 30px;\n}\n.table-container {\n    display: flex;\n    flex: 1;\n    flex-direction: column;\n    justify-content: center;\n    align-items: center;\n    margin-top: 20px;\n}\n\n", ""]);
@@ -39147,7 +39170,14 @@ var render = function() {
             _vm._l(_vm.users, function(user) {
               return _c(
                 "md-table-row",
-                { key: user.id },
+                {
+                  key: user.id,
+                  on: {
+                    click: function($event) {
+                      return _vm.edit(user.id)
+                    }
+                  }
+                },
                 [
                   _c("md-table-cell", { attrs: { "md-numeric": "" } }, [
                     _vm._v(_vm._s(user.id))
@@ -39159,7 +39189,32 @@ var render = function() {
                   _vm._v(" "),
                   _c("md-table-cell", [_vm._v(_vm._s(user.phone))]),
                   _vm._v(" "),
-                  _c("md-table-cell")
+                  _c("md-table-cell"),
+                  _vm._v(" "),
+                  _c("md-table-cell", [
+                    _c(
+                      "form",
+                      {
+                        attrs: {
+                          method: "POST",
+                          action: _vm.deleteUserRoute + "/" + user.id
+                        }
+                      },
+                      [
+                        _c(
+                          "md-button",
+                          {
+                            staticClass: "md-fab md-mini",
+                            attrs: { type: "submit" },
+                            on: { click: _vm.btnStopPropagation }
+                          },
+                          [_c("md-icon", [_vm._v("delete")])],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ])
                 ],
                 1
               )
@@ -39199,7 +39254,10 @@ var render = function() {
       _c(
         "form",
         {
-          attrs: { method: "POST", action: _vm.addUserRoute },
+          attrs: {
+            method: "POST",
+            action: !_vm.edit ? _vm.addUserRoute : _vm.editUserRoute
+          },
           on: { submit: _vm.add }
         },
         [
@@ -39210,7 +39268,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "md-field",
-            { staticClass: "input" },
+            { staticClass: "input", class: _vm.nameError ? "md-invalid" : "" },
             [
               _c("label", [_vm._v("Nome")]),
               _vm._v(" "),
@@ -39223,14 +39281,18 @@ var render = function() {
                   },
                   expression: "name"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "md-error" }, [
+                _vm._v(_vm._s(_vm.nameError))
+              ])
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "md-field",
-            { staticClass: "input" },
+            { staticClass: "input", class: _vm.emailError ? "md-invalid" : "" },
             [
               _c("label", [_vm._v("Email")]),
               _vm._v(" "),
@@ -39243,14 +39305,23 @@ var render = function() {
                   },
                   expression: "email"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.emailError
+                ? _c("span", { staticClass: "md-error" }, [
+                    _vm._v(_vm._s(_vm.emailError))
+                  ])
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "md-field",
-            { staticClass: "input" },
+            {
+              staticClass: "input",
+              class: _vm.passwordError ? "md-invalid" : ""
+            },
             [
               _c("label", [_vm._v("Senha")]),
               _vm._v(" "),
@@ -39263,14 +39334,20 @@ var render = function() {
                   },
                   expression: "password"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.passwordError
+                ? _c("span", { staticClass: "md-error" }, [
+                    _vm._v(_vm._s(_vm.passwordError))
+                  ])
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
           _c(
             "md-field",
-            { staticClass: "input" },
+            { staticClass: "input", class: _vm.phoneError ? "md-invalid" : "" },
             [
               _c("label", [_vm._v("Telefone")]),
               _vm._v(" "),
@@ -39283,16 +39360,38 @@ var render = function() {
                   },
                   expression: "phone"
                 }
-              })
+              }),
+              _vm._v(" "),
+              _vm.phoneError
+                ? _c("span", { staticClass: "md-error" }, [
+                    _vm._v(_vm._s(_vm.phoneError))
+                  ])
+                : _vm._e()
             ],
             1
           ),
           _vm._v(" "),
-          _c(
-            "md-button",
-            { staticClass: "md-raised md-primary", attrs: { type: "submit" } },
-            [_vm._v("Criar usuário")]
-          )
+          !_vm.edit
+            ? _c(
+                "md-button",
+                {
+                  staticClass: "md-raised md-primary",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Criar usuário")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.edit
+            ? _c(
+                "md-button",
+                {
+                  staticClass: "md-raised md-primary",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("Salvar usuário")]
+              )
+            : _vm._e()
         ],
         1
       )

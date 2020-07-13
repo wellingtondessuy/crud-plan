@@ -23,12 +23,19 @@
                     <md-table-head></md-table-head>
                 </md-table-row>
 
-                <md-table-row v-for="user in users" :key="user.id">
+                <md-table-row v-on:click="edit(user.id)" v-for="user in users" :key="user.id">
                     <md-table-cell md-numeric>{{ user.id }}</md-table-cell>
                     <md-table-cell>{{ user.name }}</md-table-cell>
                     <md-table-cell>{{ user.email }}</md-table-cell>
                     <md-table-cell>{{ user.phone }}</md-table-cell>
                     <md-table-cell></md-table-cell>
+                    <md-table-cell>
+                        <form method="POST" :action="deleteUserRoute + '/' +  user.id">
+                            <md-button v-on:click="btnStopPropagation" type="submit" class="md-fab md-mini">
+                                <md-icon>delete</md-icon>
+                            </md-button>
+                        </form>
+                    </md-table-cell>
                 </md-table-row>
 
             </md-table>
@@ -40,12 +47,24 @@
 <script>
 
 export default {
-    props: [ 'users', 'addUserRoute' ],
+    props: [ 'users', 'addUserRoute', 'deleteUserRoute', 'editUserRoute' ],
+    methods: {
+        btnStopPropagation(e) {
+            e.stopPropagation();
+        },
+        edit(userId) {
+
+            console.log(userId)
+            window.location = this.editUserRoute + '/' + userId
+        }
+    }
 }
 
 </script>
 
 <style>
+
+@import url("https://fonts.googleapis.com/css?family=Material+Icons");
 
 .container {
     display: flex;

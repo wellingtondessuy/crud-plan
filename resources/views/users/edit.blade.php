@@ -10,11 +10,12 @@
     <body>
         <div id="app">
             <users-add
+                :edit="true"
                 :csrf-token="'{{ csrf_token() }}'"
-                :add-user-route="'{{ route('users.create') }}'"
-                :name="'{{ old('name') }}'"
-                :email="'{{ old('email') }}'"
-                :phone="'{{ old('phone') }}'"
+                :edit-user-route="'{{ url('/users/update/' . $user->id) }}'"
+                :name="'{{ old('name')?? $user->name }}'"
+                :email="'{{ old('email')?? $user->email }}'"
+                :phone="'{{ old('phone')?? $user->phone }}'"
                 @error('name')
                     :name-error="'{{ $message }}'"
                 @enderror

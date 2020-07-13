@@ -12,6 +12,8 @@
             <users
                 :users="{{ empty($users)? [] : json_encode($users->toArray()) }}"
                 :add-user-route="'{{ route('users.add') }}'"
+                :edit-user-route="'{{ url('/users/') }}'"
+                :delete-user-route="'{{ url('/users/delete/') }}'"
                 ></users>
         </div>
         <script type="text/javascript" src="../js/app.js"></script>
