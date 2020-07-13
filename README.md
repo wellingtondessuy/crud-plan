@@ -7,6 +7,8 @@ Para teste do projeto siga os seguintes passos:
 
 2 - Dentro da pasta do repositório execute:
     
+    cp .env.example .env
+
     git submodule add https://github.com/Laradock/laradock.git
     cp laradock.env laradock/.env
     cd laradock && docker-compose up -d nginx mysql
@@ -18,5 +20,7 @@ Para teste do projeto siga os seguintes passos:
 
     Saia do container com o comando `exit`.
 
-3 - Acesse http://localhost.
+3 - Acesse o database (root, senha: root) e execute o arquivo `database/tables/users.sql`
+
+4 - Acesse http://localhost.
 

@@ -30,11 +30,4 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of users
--- ----------------------------
-INSERT INTO `users` VALUES ('2', 'wellington dessuy de almeida', 'wellington.dessuy@outlook.com', null, '51997502428', null, '0', null, null);
-INSERT INTO `users` VALUES ('3', null, null, '$2y$10$mgPDwrwBH04A1c7LHNyR6uy9wVzFTyGiMLoAuDKFzYvPC1WyYNdnK', null, null, '0', '2020-07-13 14:20:47', '2020-07-13 14:20:47');
-INSERT INTO `users` VALUES ('4', 'gkjhgkjhg', 'kjhgkjhgk', '$2y$10$HkQem0mS9P8x2zTCvMg6ouYa0dBZTLAPzz.EvQqcaWb23qeT4hXw6', 'gkjhgj', null, '0', '2020-07-13 14:23:48', '2020-07-13 14:23:48');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
